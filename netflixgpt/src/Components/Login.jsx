@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Hearder } from './Hearder'
 
 export const Login = () => {
+  const [isSignIn,setIsSignIn]=useState(true)
+
+  const toggleForm=()=>{
+    setIsSignIn(!isSignIn)
+  }
   return (
     <div>
         <Hearder/>
@@ -12,13 +17,23 @@ export const Login = () => {
         </div>
         <form className='w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0
          text-white rounded-lg bg-opacity-80'>
-         <h1 className='font-bold text-3xl'>Sign In</h1>
+         <h1 className='font-bold text-3xl'>{isSignIn?"Sign In":"Sign Out"}</h1>
+{!isSignIn&&<input type="text"
+           placeholder="Enter Your Full Name" className='p-4 my-4 w-full bg-gray-700' />}
           <input type="email"
            placeholder="Enter Your Email" className='p-4 my-4 w-full bg-gray-700' />
+        
           <input type="password" placeholder="Enter Your Password" 
           className='p-4 my-4 w-full bg-gray-700' />
-          <button className='p-4 my-6 bg-red-700 w-full rounded-lg'>Sign In</button>
 
+          <button className='p-4 my-6 bg-red-700 w-full rounded-lg'>
+          {isSignIn?"Sign In":"Sign Out"}
+            </button>
+
+<p onClick={toggleForm} className='py-4 cursor-pointer'>
+{isSignIn?"New to Netflix? Sign up now.":"Allready registered? SignIn Now"}
+  
+  </p>
         </form>
     </div>
   )
