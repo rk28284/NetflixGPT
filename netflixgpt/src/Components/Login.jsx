@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { Hearder } from './Hearder'
 import { checkValiadater } from '../Utilities/valiadater'
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../Utilities/firebase';
 export const Login = () => {
   const [isSignIn,setIsSignIn]=useState(true)
   const [isError,setIsError]=useState(null)
@@ -10,10 +11,35 @@ const email=useRef(null)
 const password=useRef(null)
 const handleButtonclick=()=>{
   //validate the form
-const message= checkValiadater(name.current,email.current.value,password.current.value)
+const message= checkValiadater(name.current.value,email.current.value,password.current.value)
 
-  console.log(message);
+  // console.log(message);
 setIsError(message)
+if(message) return 
+
+if(!isSignIn){
+//Signup Logic
+createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    
+    // ..
+  });
+
+}else{
+//SignIn Logic
+
+}
+  //signin and signup
+
+
 }
 
 
