@@ -5,12 +5,12 @@ import { checkValiadater } from '../Utilities/valiadater'
 export const Login = () => {
   const [isSignIn,setIsSignIn]=useState(true)
   const [isError,setIsError]=useState(null)
-
+const name=useRef(null)
 const email=useRef(null)
 const password=useRef(null)
 const handleButtonclick=()=>{
   //validate the form
-const message= checkValiadater(email.current.value,password.current.value)
+const message= checkValiadater(name.current,email.current.value,password.current.value)
 
   console.log(message);
 setIsError(message)
@@ -31,7 +31,7 @@ setIsError(message)
         <form onSubmit={(e)=>(e.preventDefault())} className='w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0
          text-white rounded-lg bg-opacity-80'>
          <h1 className='font-bold text-3xl'>{isSignIn?"Sign In":"Sign Out"}</h1>
-{!isSignIn&&<input type="text"
+{!isSignIn&&<input type="text" ref={name}
            placeholder="Enter Your Full Name" className='p-4 my-4 w-full bg-gray-700' />}
           <input type="email" ref={email}
            placeholder="Enter Your Email" className='p-4 my-4 w-full bg-gray-700' />
