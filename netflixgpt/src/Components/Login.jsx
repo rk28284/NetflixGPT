@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import { Hearder } from './Hearder'
 import { checkValiadater } from '../Utilities/valiadater'
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+
 import { auth } from '../Utilities/firebase';
 export const Login = () => {
   const [isSignIn,setIsSignIn]=useState(true)
@@ -29,13 +30,22 @@ createUserWithEmailAndPassword(auth, email.current.value,password.current.value)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    
+    setIsError(errorCode+"-----"+errorMessage)
     // ..
   });
 
 }else{
 //SignIn Logic
-
+signInWithEmailAndPassword(auth, email.current.value,password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
 }
   //signin and signup
 
